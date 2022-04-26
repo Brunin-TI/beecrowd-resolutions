@@ -1,0 +1,25 @@
+const [price] = lines.map(Number);
+const calculate = (price, note) => {
+  const quotient = Math.floor(price / note);
+  const rest = price % note;
+  return { quotient, rest };
+};
+const notesType = [100, 50, 20, 10, 5, 2, 1];
+const amountOfNotes = {};
+let currentValue = price;
+notesType.forEach((note) => {
+  const { quotient, rest } = calculate(currentValue, note);
+  amountOfNotes[note] = quotient;
+  currentValue = rest;
+});
+
+const formatAnswer = (price, amountOfNotes) => {
+  const output = [];
+  output.push(price);
+  Object.keys(amountOfNotes).forEach((note) => {
+    output.push(`${amountOfNotes[note]} nota(s) de R$ ${note},00`);
+  });
+  return output.join("\n");
+};
+const answer = formatAnswer(price, amountOfNotes);
+console.log(answer);
